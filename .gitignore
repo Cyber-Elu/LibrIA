@@ -1,0 +1,16 @@
+# Environnement Python
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets (clé API, mots de passe) : ne jamais les mettre sur GitHub
+.env
+
+# Données téléchargées (trop lourdes pour Git, on peut les regénérer)
+data/raw/*
+!data/raw/.gitkeep
+data/clean/
+
+# VS Code / Windows
+.vscode/
+Thumbs.db
