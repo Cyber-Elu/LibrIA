@@ -12,7 +12,7 @@ Le projet reprend les idées de l'ancien dépôt [Asuura666/Libria](https://gith
 | 1 | Collecte Google Books et archive brute (`data/raw/`) | ✅ script prêt |
 | 2 | Nettoyage : français uniquement, sans doublons (`data/clean/livres.csv`) | ✅ script prêt |
 | 3 | Couvertures de la première édition (Open Library + Google Books) | ✅ script prêt |
-| 4 | Moteur de recommandation (similarité des résumés) | à faire |
+| 4 | Moteur de recommandation (similarité des résumés) | ✅ script prêt |
 | 5 | Site web Django : comptes, fiches livres, bibliothèque perso | à faire |
 | 6 | Mise en ligne gratuite | plus tard |
 
@@ -110,6 +110,25 @@ environ 3 secondes par livre la première fois.
 
 Ce n'est pas parfait : Open Library ne connaît pas tous les livres et ses dates sont parfois approximatives.
 
+## Étape 4 : calculer les livres similaires
+
+```powershell
+python pipeline/recommandations.py
+```
+
+Pour chaque livre, un petit modèle d'intelligence artificielle gratuit
+([sentence-transformers](https://www.sbert.net/), qui comprend le français) transforme le titre,
+les catégories et le résumé en une « empreinte » : une liste de nombres qui résume le sens du texte.
+Deux livres aux empreintes proches parlent de choses proches.
+
+Le script garde les 20 livres les plus proches de chaque livre dans `data/clean/similaires.csv`
+(colonne `score` : 1 = même sens, 0 = aucun rapport) et affiche un exemple pour vérifier à l'œil.
+
+- La première fois, le modèle (≈ 500 Mo) est téléchargé automatiquement.
+- Tout tourne sur ton PC, sans carte graphique : compter quelques minutes pour quelques milliers de livres.
+- Les empreintes sont gardées dans `data/clean/empreintes.npy` : en relançant après une nouvelle collecte,
+  seuls les nouveaux livres sont calculés.
+
 ## Organisation des dossiers
 
 ```
@@ -118,6 +137,7 @@ LibrIA/
 │   ├── collecte_google_books.py   étape 1 : collecte
 │   ├── nettoyage.py               étape 2 : nettoyage
 │   ├── couvertures.py             étape 3 : couvertures
+│   ├── recommandations.py         étape 4 : livres similaires
 │   └── mots_cles.txt
 ├── tests/               vérifications automatiques et petites données d'exemple
 ├── data/
