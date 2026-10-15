@@ -1,0 +1,33 @@
+{
+ "items": [
+  {
+   "id": "ETR2005",
+   "volumeInfo": {
+    "title": "L'Étranger",
+    "authors": [
+     "Albert Camus"
+    ],
+    "publishedDate": "2005-03-01",
+    "description": "Un homme ordinaire, Meursault, tue un Arabe sur une plage d'Alger et assiste, indifférent, à son propre procès.",
+    "language": "fr",
+    "categories": [
+     "Classique"
+    ],
+    "pageCount": 180,
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9782070360024"
+     }
+    ],
+    "imageLinks": {
+     "thumbnail": "http://books.google.com/books/content?id=ETR2005&printsec=frontcover&img=1&zoom=1&edge=curl"
+    }
+   }
+  }
+ ],
+ "_libria": {
+  "mot_cle": "Polar",
+  "page": 0
+ }
+}

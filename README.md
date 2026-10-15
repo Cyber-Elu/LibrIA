@@ -10,7 +10,7 @@ Le projet reprend les idées de l'ancien dépôt [Asuura666/Libria](https://gith
 | Étape | Contenu | État |
 |---|---|---|
 | 1 | Collecte Google Books et archive brute (`data/raw/`) | ✅ script prêt |
-| 2 | Nettoyage : français uniquement, sans doublons | à faire |
+| 2 | Nettoyage : français uniquement, sans doublons (`data/clean/livres.csv`) | ✅ script prêt |
 | 3 | Couvertures de la première édition (Open Library + Google Books) | à faire |
 | 4 | Moteur de recommandation (similarité des résumés) | à faire |
 | 5 | Site web Django : comptes, fiches livres, bibliothèque perso | à faire |
@@ -64,15 +64,42 @@ Le quota gratuit est d'environ 1 000 requêtes par jour, la collecte complète p
 
 Pour ajouter des thèmes, ajoute une ligne dans `pipeline/mots_cles.txt`.
 
+## Étape 2 : nettoyer les données
+
+Une fois quelques pages collectées (même une petite partie suffit pour essayer) :
+
+```powershell
+python pipeline/nettoyage.py
+```
+
+Le script lit l'archive `data/raw/` sans la modifier et crée `data/clean/livres.csv`, avec un livre par ligne :
+
+- uniquement les livres en français, avec un titre, un auteur et un vrai résumé ;
+- résumés débarrassés des balises HTML ;
+- les éditions d'un même livre (même titre et même auteur) regroupées en une seule ligne,
+  avec la date de parution la plus ancienne et tous les ISBN.
+
+Le fichier s'ouvre directement dans Excel (séparateur `;`). Le script affiche aussi combien de livres ont été écartés et pourquoi.
+On peut le relancer à chaque fois que la collecte avance.
+
+Pour vérifier que le nettoyage fonctionne, sans rien télécharger :
+
+```powershell
+python -m unittest discover tests
+```
+
 ## Organisation des dossiers
 
 ```
 LibrIA/
 ├── pipeline/            scripts de traitement des données
-│   ├── collecte_google_books.py
+│   ├── collecte_google_books.py   étape 1 : collecte
+│   ├── nettoyage.py               étape 2 : nettoyage
 │   └── mots_cles.txt
+├── tests/               vérifications automatiques et petites données d'exemple
 ├── data/
-│   └── raw/             archive brute de Google Books (pas envoyée sur GitHub)
+│   ├── raw/             archive brute de Google Books (pas envoyée sur GitHub)
+│   └── clean/           données nettoyées (pas envoyées sur GitHub)
 ├── requirements.txt     bibliothèques Python nécessaires
 └── .env.example         modèle du fichier de configuration
 ```
