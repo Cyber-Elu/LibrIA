@@ -1,0 +1,11 @@
+{% extends "livres/base.html" %}
+{% block titre %}Pour toi{% endblock %}
+{% block contenu %}
+<h1>Pour toi</h1>
+{% if a_des_lectures %}
+  <p class="discret">Des livres qui ressemblent à ceux que tu as lus ou que tu es en train de lire.</p>
+  {% include "livres/_grille.html" with vide="Pas encore de suggestions : les livres similaires n'ont peut-être pas été calculés (étape 4)." %}
+{% else %}
+  <p>Range quelques livres dans <strong>Lu</strong> ou <strong>En cours</strong>, et LibrIA te proposera des livres qui leur ressemblent.</p>
+{% endif %}
+{% endblock %}

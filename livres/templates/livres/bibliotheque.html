@@ -1,0 +1,9 @@
+{% extends "livres/base.html" %}
+{% block titre %}Ma bibliothèque{% endblock %}
+{% block contenu %}
+<h1>Ma bibliothèque</h1>
+{% for label, livres in etageres %}
+  <h2>{{ label }} <span class="discret">({{ livres|length }})</span></h2>
+  {% include "livres/_grille.html" with vide="Aucun livre ici. Ouvre la fiche d'un livre pour le ranger." %}
+{% endfor %}
+{% endblock %}

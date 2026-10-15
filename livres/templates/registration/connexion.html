@@ -1,0 +1,14 @@
+{% extends "livres/base.html" %}
+{% block titre %}Connexion{% endblock %}
+{% block contenu %}
+<section class="formulaire">
+  <h1>Connexion</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="next" value="{{ next }}">
+    <button class="bouton">Se connecter</button>
+  </form>
+  <p>Pas encore de compte ? <a href="{% url 'inscription' %}">Crée-le ici</a>.</p>
+</section>
+{% endblock %}

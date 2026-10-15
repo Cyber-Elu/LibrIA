@@ -13,7 +13,7 @@ Le projet reprend les idées de l'ancien dépôt [Asuura666/Libria](https://gith
 | 2 | Nettoyage : français uniquement, sans doublons (`data/clean/livres.csv`) | ✅ script prêt |
 | 3 | Couvertures de la première édition (Open Library + Google Books) | ✅ script prêt |
 | 4 | Moteur de recommandation (similarité des résumés) | ✅ script prêt |
-| 5 | Site web Django : comptes, fiches livres, bibliothèque perso | à faire |
+| 5 | Site web Django : comptes, fiches livres, bibliothèque perso, suggestions | ✅ prêt |
 | 6 | Mise en ligne gratuite | plus tard |
 
 ## Installation sous Windows (une seule fois)
@@ -82,12 +82,6 @@ Le script lit l'archive `data/raw/` sans la modifier et crée `data/clean/livres
 Le fichier s'ouvre directement dans Excel (séparateur `;`). Le script affiche aussi combien de livres ont été écartés et pourquoi.
 On peut le relancer à chaque fois que la collecte avance.
 
-Pour vérifier que le nettoyage fonctionne, sans rien télécharger :
-
-```powershell
-python -m unittest discover tests
-```
-
 ## Étape 3 : trouver les couvertures de la première édition
 
 ```powershell
@@ -129,6 +123,44 @@ Le script garde les 20 livres les plus proches de chaque livre dans `data/clean/
 - Les empreintes sont gardées dans `data/clean/empreintes.npy` : en relançant après une nouvelle collecte,
   seuls les nouveaux livres sont calculés.
 
+## Étape 5 : lancer le site web
+
+La première fois :
+
+```powershell
+python manage.py migrate              # crée la base de données (fichier db.sqlite3)
+python manage.py importer_livres      # charge les livres préparés par les étapes 2, 3 et 4
+python manage.py createsuperuser      # optionnel : un compte administrateur
+```
+
+Ensuite, à chaque fois :
+
+```powershell
+python manage.py runserver
+```
+
+Ouvre [http://127.0.0.1:8000](http://127.0.0.1:8000) dans ton navigateur. Le site s'arrête avec `Ctrl + C` dans le terminal.
+
+Ce que propose le site :
+
+- **Créer un compte**, se connecter et se déconnecter ;
+- **Rechercher** un livre par titre ou auteur ;
+- **Fiche livre** : couverture, résumé et livres qui lui ressemblent ;
+- **Ma bibliothèque** : sur la fiche d'un livre, les boutons **Lu**, **En cours** et **À lire** le rangent dans ta bibliothèque ;
+- **Pour toi** : des livres qui ressemblent à ceux que tu as lus ou que tu es en train de lire ;
+- **Administration** sur [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) avec le compte créé par `createsuperuser`.
+
+Après une nouvelle collecte, relance les étapes 2 à 4 puis `python manage.py importer_livres` :
+les livres sont mis à jour et les bibliothèques des utilisateurs sont conservées.
+
+## Vérifier que tout fonctionne
+
+```powershell
+python manage.py test
+```
+
+Lance toutes les vérifications automatiques (scripts de données et site), sans rien télécharger.
+
 ## Organisation des dossiers
 
 ```
@@ -139,7 +171,12 @@ LibrIA/
 │   ├── couvertures.py             étape 3 : couvertures
 │   ├── recommandations.py         étape 4 : livres similaires
 │   └── mots_cles.txt
-├── tests/               vérifications automatiques et petites données d'exemple
+├── libria/              réglages du site Django
+├── livres/              le site : pages, base de données, import des livres
+│   ├── templates/       les pages HTML
+│   └── static/          la feuille de style
+├── manage.py            commandes du site (runserver, migrate, importer_livres…)
+├── tests/               vérifications automatiques des scripts et petites données d'exemple
 ├── data/
 │   ├── raw/             archive brute de Google Books (pas envoyée sur GitHub)
 │   └── clean/           données nettoyées (pas envoyées sur GitHub)
