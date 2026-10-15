@@ -1,0 +1,36 @@
+{% extends "livres/base.html" %}
+{% block titre %}{{ livre.titre }}{% endblock %}
+{% block contenu %}
+<article class="fiche">
+  <div class="fiche-couverture">
+    {% if livre.couverture %}<img src="{{ livre.couverture }}" alt="Couverture de {{ livre.titre }}">{% else %}<div class="sans-couverture">{{ livre.titre }}</div>{% endif %}
+    {% if livre.annee_couverture %}<p class="discret">Couverture de l'édition de {{ livre.annee_couverture }}</p>{% endif %}
+  </div>
+  <div>
+    <h1>{{ livre.titre }}</h1>
+    {% if livre.sous_titre %}<p class="sous-titre">{{ livre.sous_titre }}</p>{% endif %}
+    <p class="auteurs">{{ livre.auteurs }}</p>
+    <p class="discret">
+      {% if livre.annee %}Paru en {{ livre.annee }}{% endif %}{% if livre.editeur %} · {{ livre.editeur }}{% endif %}{% if livre.nb_pages %} · {{ livre.nb_pages }} pages{% endif %}
+    </p>
+    {% if livre.categories %}<p class="discret">{{ livre.categories }}</p>{% endif %}
+
+    {% if user.is_authenticated %}
+      <form class="statuts" action="{% url 'changer_statut' livre.id_livre %}" method="post">
+        {% csrf_token %}
+        {% for valeur, label in statuts %}
+          <button name="statut" value="{{ valeur }}" {% if statut == valeur %}class="actif" aria-pressed="true"{% endif %}>{{ label }}</button>
+        {% endfor %}
+        {% if statut %}<button name="statut" value="retirer" class="lien">Retirer</button>{% endif %}
+      </form>
+    {% else %}
+      <p><a href="{% url 'connexion' %}?next={{ request.path|urlencode }}">Connecte-toi</a> pour ranger ce livre dans ta bibliothèque.</p>
+    {% endif %}
+
+    <h2>Résumé</h2>
+    <p class="resume">{{ livre.description }}</p>
+  </div>
+</article>
+<h2>Livres qui lui ressemblent</h2>
+{% include "livres/_grille.html" with livres=similaires vide="Pas encore de suggestions pour ce livre." %}
+{% endblock %}

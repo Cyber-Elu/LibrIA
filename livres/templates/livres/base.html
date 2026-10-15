@@ -1,0 +1,31 @@
+{% load static %}<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titre %}LibrIA{% endblock %} · LibrIA</title>
+  <link rel="stylesheet" href="{% static 'livres/style.css' %}">
+</head>
+<body>
+  <header class="entete">
+    <a class="logo" href="{% url 'accueil' %}">Libr<span>IA</span></a>
+    <form class="recherche" action="{% url 'recherche' %}">
+      <input type="search" name="q" value="{{ q|default:'' }}" placeholder="Titre ou auteur…" aria-label="Rechercher un livre">
+    </form>
+    <nav>
+      {% if user.is_authenticated %}
+        <a href="{% url 'pour_toi' %}">Pour toi</a>
+        <a href="{% url 'bibliotheque' %}">Ma bibliothèque</a>
+        <form action="{% url 'deconnexion' %}" method="post">{% csrf_token %}<button class="lien">Déconnexion</button></form>
+      {% else %}
+        <a href="{% url 'connexion' %}">Connexion</a>
+        <a class="bouton" href="{% url 'inscription' %}">Créer un compte</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main>
+    {% for message in messages %}<p class="message">{{ message }}</p>{% endfor %}
+    {% block contenu %}{% endblock %}
+  </main>
+</body>
+</html>

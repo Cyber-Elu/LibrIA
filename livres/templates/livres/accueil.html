@@ -1,0 +1,11 @@
+{% extends "livres/base.html" %}
+{% block titre %}Accueil{% endblock %}
+{% block contenu %}
+<section class="intro">
+  <h1>Trouve ton prochain livre</h1>
+  <p>LibrIA te propose des livres parus en français qui ressemblent à ceux que tu as aimés, en comparant leurs résumés.</p>
+  {% if not user.is_authenticated %}<p><a class="bouton" href="{% url 'inscription' %}">Créer un compte gratuit</a></p>{% endif %}
+</section>
+<h2>À découvrir</h2>
+{% include "livres/_grille.html" with vide="Aucun livre pour l'instant : lance python manage.py importer_livres (voir le README)." %}
+{% endblock %}

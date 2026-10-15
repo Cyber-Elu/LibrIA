@@ -1,0 +1,13 @@
+{% extends "livres/base.html" %}
+{% block titre %}Créer un compte{% endblock %}
+{% block contenu %}
+<section class="formulaire">
+  <h1>Créer un compte</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="bouton">Créer mon compte</button>
+  </form>
+  <p>Déjà inscrit ? <a href="{% url 'connexion' %}">Connecte-toi</a>.</p>
+</section>
+{% endblock %}

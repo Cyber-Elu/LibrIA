@@ -1,0 +1,18 @@
+{% extends "livres/base.html" %}
+{% block titre %}Recherche{% endblock %}
+{% block contenu %}
+<h1>{% if q %}Résultats pour « {{ q }} »{% else %}Rechercher un livre{% endif %}</h1>
+{% if q %}
+  <p class="discret">{{ page.paginator.count }} livre{{ page.paginator.count|pluralize }}</p>
+  {% include "livres/_grille.html" with livres=page.object_list vide="Aucun livre ne correspond. Essaie avec moins de mots." %}
+  {% if page.has_other_pages %}
+    <nav class="pages">
+      {% if page.has_previous %}<a href="?q={{ q|urlencode }}&page={{ page.previous_page_number }}">← Précédents</a>{% endif %}
+      <span>Page {{ page.number }} / {{ page.paginator.num_pages }}</span>
+      {% if page.has_next %}<a href="?q={{ q|urlencode }}&page={{ page.next_page_number }}">Suivants →</a>{% endif %}
+    </nav>
+  {% endif %}
+{% else %}
+  <p>Tape un titre ou un nom d'auteur dans la barre de recherche en haut.</p>
+{% endif %}
+{% endblock %}

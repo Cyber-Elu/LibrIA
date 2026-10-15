@@ -1,0 +1,13 @@
+<ul class="grille">
+  {% for livre in livres %}
+    <li>
+      <a href="{{ livre.get_absolute_url }}">
+        {% if livre.couverture %}<img src="{{ livre.couverture }}" alt="" loading="lazy">{% else %}<div class="sans-couverture">{{ livre.titre }}</div>{% endif %}
+        <strong>{{ livre.titre }}</strong>
+        <span>{{ livre.auteurs }}</span>
+      </a>
+    </li>
+  {% empty %}
+    <li class="vide">{{ vide|default:"Aucun livre." }}</li>
+  {% endfor %}
+</ul>

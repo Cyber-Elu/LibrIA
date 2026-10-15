@@ -14,3 +14,6 @@ data/clean/
 # VS Code / Windows
 .vscode/
 Thumbs.db
+
+# Base de données du site (créée sur ton PC par python manage.py migrate)
+db.sqlite3
