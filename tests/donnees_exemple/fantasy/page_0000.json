@@ -1,0 +1,129 @@
+{
+ "items": [
+  {
+   "id": "ETR2005",
+   "volumeInfo": {
+    "title": "L'Étranger",
+    "authors": [
+     "Albert Camus"
+    ],
+    "publishedDate": "2005-03-01",
+    "description": "<p>Un homme ordinaire, Meursault, tue un Arabe sur une plage d'Alger et assiste, indifférent, à son propre procès.</p><br>Édition de poche.",
+    "language": "fr",
+    "categories": [
+     "Fiction"
+    ],
+    "pageCount": 180,
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9782070360024"
+     }
+    ],
+    "imageLinks": {
+     "thumbnail": "http://books.google.com/books/content?id=ETR2005&printsec=frontcover&img=1&zoom=1&edge=curl"
+    }
+   }
+  },
+  {
+   "id": "ETR1972",
+   "volumeInfo": {
+    "title": "L'étranger",
+    "authors": [
+     "Camus, Albert"
+    ],
+    "publishedDate": "1972",
+    "description": "Un homme ordinaire, Meursault, tue un Arabe sur une plage d'Alger et assiste, indifférent, à son propre procès.",
+    "language": "fr",
+    "categories": [
+     "Fiction"
+    ],
+    "pageCount": 180,
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9782070360000"
+     }
+    ]
+   }
+  },
+  {
+   "id": "HOBBIT",
+   "volumeInfo": {
+    "title": "Le Hobbit",
+    "authors": [
+     "J.R.R. Tolkien"
+    ],
+    "publishedDate": "2012",
+    "description": "Bilbo le Hobbit mène une vie tranquille jusqu'au jour où le magicien Gandalf l'entraîne dans une aventure &amp; un trésor gardé par un dragon.",
+    "language": "fr",
+    "categories": [
+     "Fiction"
+    ],
+    "pageCount": 180,
+    "imageLinks": {
+     "thumbnail": "http://books.google.com/books/content?id=HOBBIT&printsec=frontcover&img=1&zoom=1&edge=curl"
+    }
+   }
+  },
+  {
+   "id": "ENGL",
+   "volumeInfo": {
+    "title": "The Hobbit",
+    "authors": [
+     "J.R.R. Tolkien"
+    ],
+    "publishedDate": "1937",
+    "description": "Bilbo Baggins is a hobbit who enjoys a comfortable life until the wizard Gandalf arrives at his door one day.",
+    "language": "en",
+    "categories": [
+     "Fiction"
+    ],
+    "pageCount": 180,
+    "imageLinks": {
+     "thumbnail": "http://books.google.com/books/content?id=ENGL&printsec=frontcover&img=1&zoom=1&edge=curl"
+    }
+   }
+  },
+  {
+   "id": "COURT",
+   "volumeInfo": {
+    "title": "Sans résumé",
+    "authors": [
+     "Quelqu'un"
+    ],
+    "publishedDate": "2001",
+    "description": "Trop court.",
+    "language": "fr",
+    "categories": [
+     "Fiction"
+    ],
+    "pageCount": 180,
+    "imageLinks": {
+     "thumbnail": "http://books.google.com/books/content?id=COURT&printsec=frontcover&img=1&zoom=1&edge=curl"
+    }
+   }
+  },
+  {
+   "id": "NOAUT",
+   "volumeInfo": {
+    "title": "Sans auteur",
+    "authors": [],
+    "publishedDate": "2001",
+    "description": "Un homme ordinaire, Meursault, tue un Arabe sur une plage d'Alger et assiste, indifférent, à son propre procès.",
+    "language": "fr",
+    "categories": [
+     "Fiction"
+    ],
+    "pageCount": 180,
+    "imageLinks": {
+     "thumbnail": "http://books.google.com/books/content?id=NOAUT&printsec=frontcover&img=1&zoom=1&edge=curl"
+    }
+   }
+  }
+ ],
+ "_libria": {
+  "mot_cle": "Fantasy",
+  "page": 0
+ }
+}
