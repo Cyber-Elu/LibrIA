@@ -11,7 +11,7 @@ Le projet reprend les idées de l'ancien dépôt [Asuura666/Libria](https://gith
 |---|---|---|
 | 1 | Collecte Google Books et archive brute (`data/raw/`) | ✅ script prêt |
 | 2 | Nettoyage : français uniquement, sans doublons (`data/clean/livres.csv`) | ✅ script prêt |
-| 3 | Couvertures de la première édition (Open Library + Google Books) | à faire |
+| 3 | Couvertures de la première édition (Open Library + Google Books) | ✅ script prêt |
 | 4 | Moteur de recommandation (similarité des résumés) | à faire |
 | 5 | Site web Django : comptes, fiches livres, bibliothèque perso | à faire |
 | 6 | Mise en ligne gratuite | plus tard |
@@ -88,6 +88,28 @@ Pour vérifier que le nettoyage fonctionne, sans rien télécharger :
 python -m unittest discover tests
 ```
 
+## Étape 3 : trouver les couvertures de la première édition
+
+```powershell
+# Petit essai sur 20 livres
+python pipeline/couvertures.py --max-livres 20
+
+# Tous les livres de data/clean/livres.csv
+python pipeline/couvertures.py
+```
+
+Google Books ne sait pas quelle édition est la première. Le script interroge donc
+[Open Library](https://openlibrary.org) (gratuit, sans clé), qui regroupe toutes les éditions d'une même œuvre.
+Pour chaque livre, il garde la couverture de **l'édition en français la plus ancienne** qui en a une.
+S'il ne trouve rien, il garde la couverture de Google Books.
+
+Le résultat est `data/clean/couvertures.csv` (colonne `source` : `openlibrary`, `google` ou `aucune`).
+Les réponses d'Open Library sont archivées dans `data/raw/openlibrary/` : le script peut être arrêté avec `Ctrl + C`
+et relancé, il reprend où il en était. Il fait une pause d'une seconde entre deux demandes, donc compter
+environ 3 secondes par livre la première fois.
+
+Ce n'est pas parfait : Open Library ne connaît pas tous les livres et ses dates sont parfois approximatives.
+
 ## Organisation des dossiers
 
 ```
@@ -95,6 +117,7 @@ LibrIA/
 ├── pipeline/            scripts de traitement des données
 │   ├── collecte_google_books.py   étape 1 : collecte
 │   ├── nettoyage.py               étape 2 : nettoyage
+│   ├── couvertures.py             étape 3 : couvertures
 │   └── mots_cles.txt
 ├── tests/               vérifications automatiques et petites données d'exemple
 ├── data/
